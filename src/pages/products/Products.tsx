@@ -118,7 +118,7 @@ const Products = () => {
         <div className="flex flex-row flex-wrap max-w-2xl justify-center">
           {mockProductList.map((e) => (
             <div key={e.id} className="flex flex-col p-1 w-36 h-60 mx-3 my-3 hover:scale-110 duration-150 hover:cursor-pointer">
-              <div className="flex w-full justify-center bg-white rounded h-full items-center">
+              <div className="flex w-full justify-center bg-white rounded-lg h-full items-center">
                 <img alt={`img-${e.id}`} src={e.avatar} className="h-24" />
               </div>
               <p className="text-sm md:text-base font-semibold mt-2 mx-1">{e.name}</p>
