@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 
@@ -100,6 +101,10 @@ const mockProductList = [
 const Products = () => {
   const [filterByName, setFilterByName] = useState('');
   const [filterByCategory, setFilterByCategory] = useState('');
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div className="flex flex-grow mt-8 flex-col">
       <div className="flex flex-row w-full h-12 justify-between items-center">
@@ -117,7 +122,11 @@ const Products = () => {
       <div className="flex mt-7 md:mt-9 justify-center h-4/6">
         <div className="flex flex-row flex-wrap max-w-2xl justify-center">
           {mockProductList.map((e) => (
-            <div key={e.id} className="flex flex-col p-1 w-36 h-60 mx-3 my-3 hover:scale-110 duration-150 hover:cursor-pointer">
+            <div
+              key={e.id}
+              className="flex flex-col p-1 w-36 h-60 mx-3 my-3 hover:scale-110 duration-150 hover:cursor-pointer"
+              onClick={() => navigate(`/products/${e.id}`, { state: { details: { ...e }, from: location } })} //Navigate to /:id product
+            >
               <div className="flex w-full justify-center bg-white rounded-lg h-full items-center">
                 <img alt={`img-${e.id}`} src={e.avatar} className="h-24" />
               </div>
