@@ -32,7 +32,7 @@ const Select = (props: SelectProps) => {
     >
       <option className="text-black" value="" hidden={!value ? true : false}>{!value ? placeholder : "Remove selected"}</option>
       {(options || []).map((opt) => (
-        <option className="text-black" key={opt.id} value={'xd'}>{opt.name}</option>
+        <option className="text-black" key={opt.id} value={opt.name}>{opt.name}</option>
       ))}
     </select>
   )
