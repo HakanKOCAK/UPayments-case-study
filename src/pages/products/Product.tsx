@@ -96,6 +96,7 @@ const Product: React.FC = () => {
           </div>
         ) : (
           <img
+            data-cy="delete-product-btn"
             alt="add-product"
             src={"/delete.png"}
             //Check if modal is button and hide the delete button
