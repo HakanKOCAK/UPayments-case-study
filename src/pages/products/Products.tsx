@@ -45,12 +45,14 @@ const Products: React.FC = () => {
     <div className="flex flex-grow mt-8 flex-col">
       <div className="flex flex-row w-full h-12 justify-between items-center">
         <Input
+          dataCy="name-filter-input"
           disabled={entries.length === 0} //disable input if there are no products in the store atm.
           placeholder="Apple Watch, Samsung S21, Macbook Pro, Iphone11"
           value={filterByName}
           onChange={(value) => setFilterByName(value)}
         />
         <Select
+          dataCy="category-filter-input"
           disabled={entries.length === 0} //disable select if there are no products in the store atm.
           placeholder="Category"
           onChange={(value) => setFilterByCategory(value)}
@@ -86,6 +88,7 @@ const Products: React.FC = () => {
       <img
         alt="add-product"
         src="add-circle.png"
+        data-cy="add-product-btn"
         className="fixed bottom-10 w-14 right-0 md:right-14 delay-150 hover:scale-125 duration-300 hover:cursor-pointer"
         onClick={() => navigate('/products/new', { state: { from: location } })}
       />

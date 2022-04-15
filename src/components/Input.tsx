@@ -6,7 +6,8 @@ interface InputProps {
   onChange: (value: string) => void,
   value?: string,
   error?: boolean,
-  disabled?: boolean
+  disabled?: boolean,
+  dataCy?: string
 }
 
 const Input = (props: InputProps) => {
@@ -16,7 +17,8 @@ const Input = (props: InputProps) => {
     value,
     onChange,
     disabled,
-    error
+    error,
+    dataCy
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +27,7 @@ const Input = (props: InputProps) => {
 
   return (
     <input
+      data-cy={dataCy}
       className={`${extraClasses} h-10 p-2 w-40 md:w-60 lg:w-72 rounded-lg truncate focus:outline-none text-sm shadow-xl ${error ? 'border-2 border-red-500' : ''}`}
       placeholder={placeholder}
       value={value}
