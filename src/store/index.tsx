@@ -9,6 +9,11 @@ export const store = configureStore({
     products: productReducer,
     categories: categoryReducer
   },
+  //Since I am passing a function to modal reducer and functions are not serializable it gives an error to console
+  //So I will set serializableCheck to false. However, !IT IS NOT RECOMMENDED TO DO THIS!.
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  })
 });
 
 export type AppDispatch = typeof store.dispatch;
