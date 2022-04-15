@@ -21,7 +21,7 @@ const Select = (props: SelectProps) => {
   }
   return (
     <select
-      className={`h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${extraClasses}`}
+      className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl`}
       onChange={handleChange}
       value={value}
     >

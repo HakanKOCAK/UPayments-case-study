@@ -21,7 +21,7 @@ const Input = (props: InputProps) => {
 
   return (
     <input
-      className={`h-10 p-2 w-40 md:w-60 lg:w-72 rounded-lg truncate focus:outline-none text-sm shadow-xl ${extraClasses}`}
+      className={`${extraClasses} h-10 p-2 w-40 md:w-60 lg:w-72 rounded-lg truncate focus:outline-none text-sm shadow-xl`}
       placeholder={placeholder}
       value={value}
       onChange={handleChange}
