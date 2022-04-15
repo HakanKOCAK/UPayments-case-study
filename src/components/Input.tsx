@@ -4,7 +4,8 @@ interface InputProps {
   extraClasses?: string,
   placeholder: string,
   onChange: (value: string) => void,
-  value?: string
+  value?: string,
+  disabled?: boolean
 }
 
 const Input = (props: InputProps) => {
@@ -12,7 +13,8 @@ const Input = (props: InputProps) => {
     extraClasses,
     placeholder,
     value,
-    onChange
+    onChange,
+    disabled
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +26,7 @@ const Input = (props: InputProps) => {
       className={`${extraClasses} h-10 p-2 w-40 md:w-60 lg:w-72 rounded-lg truncate focus:outline-none text-sm shadow-xl`}
       placeholder={placeholder}
       value={value}
+      disabled={disabled || false}
       onChange={handleChange}
     />
   );

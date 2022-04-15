@@ -4,7 +4,9 @@ interface SelectProps {
   extraClasses?: string,
   placeholder: string,
   onChange: (value: string) => void,
-  value?: string
+  value?: string,
+  disabled?: boolean,
+  options?: Array<any>
 }
 
 
@@ -13,7 +15,9 @@ const Select = (props: SelectProps) => {
     extraClasses,
     placeholder,
     value,
-    onChange
+    onChange,
+    disabled,
+    options
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -21,14 +25,15 @@ const Select = (props: SelectProps) => {
   }
   return (
     <select
+      disabled={disabled || false}
       className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${value ? 'text-black' : 'text-gray-400'}`}
       onChange={handleChange}
       value={value}
     >
       <option className="text-black" value="" hidden={!value ? true : false}>{!value ? placeholder : "Remove selected"}</option>
-      <option className="text-black" value="Category1">Category 1</option>
-      <option className="text-black" value="Category2">Category 2</option>
-      <option className="text-black" value="Category3">Category 3</option>
+      {(options || []).map((opt) => (
+        <option className="text-black" key={opt.id} value={'xd'}>{opt.name}</option>
+      ))}
     </select>
   )
 }
