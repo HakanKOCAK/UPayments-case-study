@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { getDateFromTimeStamp } from '../../Helpers';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { isModalOpen, openModal } from '../../store/modal';
@@ -29,6 +29,7 @@ type State = {
 }
 
 const Product: React.FC = () => {
+  const navigate = useNavigate();
   const isOpen = useAppSelector(isModalOpen);
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -47,8 +48,11 @@ const Product: React.FC = () => {
     if (location.state) {
       const { details } = location.state as State;
       setProductDetails(details);
+    } else {
+      //Navigate to /products if an url is directly entered to navigate to product details on a newly opened tab
+      navigate('/products');
     }
-  }, [location]);
+  }, [location, navigate]);
 
   return (
     <div className="flex flex-grow mt-10 flex-col items-center">
