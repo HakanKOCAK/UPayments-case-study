@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { isModalOpen, openModal } from '../../store/modal';
 
 type ProductProps = {
   id: string,
@@ -26,6 +28,8 @@ type State = {
 }
 
 const Product: React.FC = () => {
+  const isOpen = useAppSelector(isModalOpen);
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const [productDetails, setProductDetails] = useState<ProductProps>({
     id: "string",
@@ -45,7 +49,6 @@ const Product: React.FC = () => {
     }
   }, [location]);
 
-  console.log(productDetails)
   return (
     <div className="flex flex-grow mt-10 flex-col items-center">
       <div className="flex flex-col flex-grow w-11/12 sm:w-8/12 items-center">
@@ -66,6 +69,19 @@ const Product: React.FC = () => {
           <header className="flex-wrap text-gray-700 text-xs md:text-base">{productDetails.description}</header>
         </div>
       </div>
+      <img
+        alt="add-product"
+        src="/delete.png"
+        //Check if modal is button and hide the delete button
+        className={`fixed bottom-10 w-14 right-0 md:right-14 delay-150 hover:scale-125 duration-300 hover:cursor-pointer z-30 ${isOpen ? 'hidden' : ''}`}
+        onClick={() => dispatch(openModal({ //Open the modal with given details
+          title: 'Delete Product',
+          text: `Are you sure want to delete ${productDetails.name}`,
+          isConfirmButtonActive: true,
+          confirmButtonText: 'Yes',
+          onConfirm: () => console.log('Will be deleted')
+        }))}
+      />
     </div>
   );
 }

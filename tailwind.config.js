@@ -16,6 +16,9 @@ module.exports = {
       },
       fontSize: {
         'xxs': '.50rem'
+      },
+      blur: {
+        'xs': '1px'
       }
     },
   },
