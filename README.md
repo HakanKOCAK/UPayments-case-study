@@ -15,4 +15,4 @@
 ```
 Check out the [demo] page.
 
-   [demo]: <https://upayments-case-study.herokuapp.com/product>
+   [demo]: <https://upayments-case-study.herokuapp.com/>
