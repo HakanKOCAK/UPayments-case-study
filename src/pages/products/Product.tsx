@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'
+import { getDateFromTimeStamp } from '../../Helpers';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { isModalOpen, openModal } from '../../store/modal';
 
@@ -54,11 +55,13 @@ const Product: React.FC = () => {
       <div className="flex flex-col flex-grow w-11/12 sm:w-8/12 items-center">
         <div className="flex flex-row w-full justify-between p-2">
           <div className="flex w-36 h-48 sm:w-40 sm:h-52 mr-6 justify-center bg-white rounded-lg items-center">
-            <img alt={`img-${productDetails.id}`} src={`/${productDetails.avatar}`} className="h-24" />
+            <img alt={`img-${productDetails.id}`} src={`${productDetails.avatar}`} className="h-24" />
           </div>
           <div className="flex flex-col flex-grow h-48 sm:h-52 justify-between px-1 py-3">
             <header className="font-bold text-gray-600 text-md sm:text-lg md:text-2xl">{productDetails.name}</header>
-            <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`$${productDetails.price}`}</header>
+            <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`Created at ${getDateFromTimeStamp(parseInt(productDetails.createdAt))}`}</header>
+            <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`Added by ${productDetails.developerEmail}`}</header>
+            <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`$${productDetails.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}</header>
           </div>
         </div>
         <div className="w-full h-2 my-1 px-4">

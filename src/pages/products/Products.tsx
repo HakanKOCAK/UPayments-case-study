@@ -71,7 +71,7 @@ const Products: React.FC = () => {
                   <img alt={`img-${e.id}`} src={e.avatar} className="h-24" />
                 </div>
                 <p className="text-sm md:text-base font-semibold mt-2 mx-1 truncate h-9">{e.name}</p>
-                <p className="text-sm md:text-base text-center font-bold mt-1">{`$${e.price}`}</p>
+                <p className="text-sm md:text-base text-center font-bold mt-1 truncate">{`$${e.price.toLocaleString('en-us', { minimumFractionDigits: 2 })}`}</p>
               </div>
             ))}
           </div>)
