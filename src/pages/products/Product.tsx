@@ -74,8 +74,10 @@ const Product: React.FC = () => {
           <div className="flex w-36 h-48 sm:w-40 sm:h-52 mr-6 justify-center bg-white rounded-lg items-center">
             <img alt={`img-${productDetails.id}`} src={`${productDetails.avatar}`} className="h-24" />
           </div>
-          <div className="flex flex-col flex-grow h-48 sm:h-52 justify-between px-1 py-3">
-            <header className="font-bold text-gray-600 text-md sm:text-lg md:text-2xl">{productDetails.name}</header>
+          <div className="flex flex-col w-full flex-grow h-48 sm:h-52 justify-between px-1 py-3">
+            {/* Slicing the name, email and price because of there is no length constraint for the inputs taken from user.
+             I know that is not the best practice but its a work around for the demo. */}
+            <header className="font-bold text-gray-600 text-md sm:text-lg md:text-2xl overflow-hidden">{productDetails.name.slice(0, 50)}</header>
             <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`Created at ${getDateFromTimeStamp(parseInt(productDetails.createdAt))}`}</header>
             <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`Added by ${productDetails.developerEmail}`}</header>
             <header className="font-semibold text-gray-600 text-sm sm:text-md md:text-xl">{`$${productDetails.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}`}</header>
