@@ -21,14 +21,14 @@ const Select = (props: SelectProps) => {
   }
   return (
     <select
-      className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl`}
+      className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${value ? 'text-black' : 'text-gray-400'}`}
       onChange={handleChange}
       value={value}
     >
-      <option value="" hidden={!value ? true : false}>{!value ? placeholder : "Remove selected"}</option>
-      <option value="Category1">Category 1</option>
-      <option value="Category2">Category 2</option>
-      <option value="Category3">Category 3</option>
+      <option className="text-black" value="" hidden={!value ? true : false}>{!value ? placeholder : "Remove selected"}</option>
+      <option className="text-black" value="Category1">Category 1</option>
+      <option className="text-black" value="Category2">Category 2</option>
+      <option className="text-black" value="Category3">Category 3</option>
     </select>
   )
 }
