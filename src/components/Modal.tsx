@@ -33,7 +33,7 @@ const Modal: React.FC = () => {
         onClick={(e) => e.stopPropagation()} //Do not close modal if clicked inside
       >
         <header className="text-white text-lg font-semibold break-words">{details.title}</header>
-        <p className="text-white text-base font break-words">{details.text}</p>
+        <p className="text-white text-base font break-words whitespace-pre-line">{details.text}</p>
         <div className="flex flex-row justify-end w-full">
           {details.isConfirmButtonActive && (
             <button
