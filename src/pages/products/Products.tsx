@@ -140,6 +140,7 @@ const Products = () => {
         alt="add-product"
         src="add-circle.png"
         className="fixed bottom-10 w-14 right-0 md:right-14 delay-150 hover:scale-125 duration-300 hover:cursor-pointer"
+        onClick={() => navigate('/products/new', { state: { from: location } })}
       />
     </div>
   );

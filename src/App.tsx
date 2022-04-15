@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import Modal from './components/Modal';
 import Navbar from './components/Navbar';
+import CreateProduct from './pages/products/CreateProduct';
 import Product from './pages/products/Product';
 import Products from './pages/products/Products';
 import { useAppSelector } from './store/hooks';
@@ -24,6 +25,7 @@ function App() {
           }
           <Route path="/products" element={<Outlet />}>
             <Route path=":productId" element={<Product />} />
+            <Route path="new" element={<CreateProduct />} />
             <Route index element={<Products />} />
           </Route>
         </Routes>
