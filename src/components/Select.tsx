@@ -31,7 +31,7 @@ const Select = (props: SelectProps) => {
     <select
       data-cy={dataCy}
       disabled={disabled || false}
-      className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${value ? 'text-black' : 'text-gray-400'} ${error ? 'border-2 border-red-500' : ''}`}
+      className={`${extraClasses || ''} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${value ? 'text-black' : 'text-gray-400'} ${error ? 'border-2 border-red-500' : ''}`}
       onChange={handleChange}
       value={value}
     >
