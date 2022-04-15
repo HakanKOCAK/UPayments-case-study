@@ -71,10 +71,10 @@ const Product: React.FC = () => {
     <div className="flex flex-grow mt-10 flex-col items-center">
       <div className="flex flex-col flex-grow w-11/12 sm:w-8/12 items-center">
         <div className="flex flex-row w-full justify-between p-2">
-          <div className="flex w-36 h-48 sm:w-40 sm:h-52 mr-6 justify-center bg-white rounded-lg items-center">
+          <div className="flex w-48 h-48 sm:h-52 justify-center bg-white rounded-lg items-center mr-6">
             <img alt={`img-${productDetails.id}`} src={`${productDetails.avatar}`} className="h-24" />
           </div>
-          <div className="flex flex-col w-full flex-grow h-48 sm:h-52 justify-between px-1 py-3">
+          <div className="flex flex-col h-48 sm:h-52 w-full justify-between px-1 py-">
             {/* Slicing the name, email and price because of there is no length constraint for the inputs taken from user.
              I know that is not the best practice but its a work around for the demo. */}
             <header className="font-bold text-gray-600 text-md sm:text-lg md:text-2xl overflow-hidden">{productDetails.name.slice(0, 50)}</header>
