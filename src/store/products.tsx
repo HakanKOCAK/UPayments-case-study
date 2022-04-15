@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getProducts } from '../api/products';
+import { getProducts, newProduct } from '../api/products';
+import { FormData } from '../pages/products/CreateProduct';
 import { RootState } from './';
 
 export interface Product {
@@ -16,12 +17,14 @@ export interface Product {
 interface ProductsState {
   entries: Product[],
   status: 'idle' | 'loading' | 'failed';
+  createStatus: 'idle' | 'loading' | 'success' | 'failed'
   error: string
 };
 
 const initialState: ProductsState = {
   entries: [],
   status: 'idle',
+  createStatus: 'idle',
   error: ''
 };
 
@@ -43,11 +46,28 @@ export const fetchProducts = createAsyncThunk<Product[], void, { rejectValue: st
   }
 );
 
+export const createProduct = createAsyncThunk<Product, FormData, { rejectValue: string }>(
+  'products/createProduct',
+  async (data: FormData, { rejectWithValue }) => {
+    try {
+      const response = await newProduct(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Error creating product');
+    }
+  }
+)
+
 export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-
+    clearCreateErrors: (state) => {
+      state.error = '';
+    },
+    onCreateSuccess: (state) => {
+      state.createStatus = 'idle';
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -64,9 +84,25 @@ export const productSlice = createSlice({
           state.error = action.payload;
         }
       })
+      .addCase(createProduct.pending, (state) => {
+        state.createStatus = 'loading';
+      })
+      .addCase(createProduct.fulfilled, (state, action: PayloadAction<Product>) => {
+        state.createStatus = 'success';
+        const copyEntries = [...state.entries];
+        copyEntries.push(action.payload);
+        state.entries = copyEntries;
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        state.createStatus = 'failed';
+        if (action.payload) {
+          state.error = action.payload;
+        }
+      })
   }
 });
 
 export const productsState = (state: RootState) => state.products;
+export const { clearCreateErrors, onCreateSuccess } = productSlice.actions;
 
 export default productSlice.reducer;

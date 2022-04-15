@@ -13,7 +13,7 @@ import { fetchProducts, productsState } from './store/products';
 function App() {
   const isOpen = useAppSelector(isModalOpen);
   const dispatch = useAppDispatch();
-  const { error: productsFetchingError } = useAppSelector(productsState);
+  const { error: productsError } = useAppSelector(productsState);
   const { error: categoriesFetchingError } = useAppSelector(categoriesState);
 
   useEffect(() => {
@@ -24,16 +24,16 @@ function App() {
 
   useEffect(() => {
     //Check if an error occured while fetching the products or categories
-    if (productsFetchingError || categoriesFetchingError) {
+    if (productsError || categoriesFetchingError) {
       dispatch(openModal({
         title: 'Error',
-        text: `${productsFetchingError} \n${categoriesFetchingError}`, //Concatenate error messages
+        text: `${productsError} \n${categoriesFetchingError}`, //Concatenate error messages
         isConfirmButtonActive: false,
         onConfirm: () => null,
         confirmButtonText: ''
       }));
     }
-  }, [productsFetchingError, categoriesFetchingError, dispatch])
+  }, [productsError, categoriesFetchingError, dispatch])
   return (
     <div className="flex min-h-screen bg-radial-gradient from-very-light-pink to-light-grey pt-8 px-4 md:px-10 lg:px-14 pb-2 z-0">
       <div className={`flex flex-col flex-grow ${isOpen ? 'blur-xs' : ''}`}>
