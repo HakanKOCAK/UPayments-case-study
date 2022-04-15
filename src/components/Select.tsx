@@ -6,7 +6,8 @@ interface SelectProps {
   onChange: (value: string) => void,
   value?: string,
   disabled?: boolean,
-  options?: Array<any>
+  options?: Array<any>,
+  error?: boolean
 }
 
 
@@ -17,6 +18,7 @@ const Select = (props: SelectProps) => {
     value,
     onChange,
     disabled,
+    error,
     options
   } = props;
 
@@ -26,7 +28,7 @@ const Select = (props: SelectProps) => {
   return (
     <select
       disabled={disabled || false}
-      className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${value ? 'text-black' : 'text-gray-400'}`}
+      className={`${extraClasses} h-10 p-2 w-32 md:w-52 lg:w-64 rounded-lg focus:outline-none text-sm shadow-xl ${value ? 'text-black' : 'text-gray-400'} ${error ? 'border-2 border-red-500' : ''}`}
       onChange={handleChange}
       value={value}
     >

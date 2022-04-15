@@ -5,6 +5,7 @@ interface InputProps {
   placeholder: string,
   onChange: (value: string) => void,
   value?: string,
+  error?: boolean,
   disabled?: boolean
 }
 
@@ -14,7 +15,8 @@ const Input = (props: InputProps) => {
     placeholder,
     value,
     onChange,
-    disabled
+    disabled,
+    error
   } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +25,7 @@ const Input = (props: InputProps) => {
 
   return (
     <input
-      className={`${extraClasses} h-10 p-2 w-40 md:w-60 lg:w-72 rounded-lg truncate focus:outline-none text-sm shadow-xl`}
+      className={`${extraClasses} h-10 p-2 w-40 md:w-60 lg:w-72 rounded-lg truncate focus:outline-none text-sm shadow-xl ${error ? 'border-2 border-red-500' : ''}`}
       placeholder={placeholder}
       value={value}
       disabled={disabled || false}
