@@ -122,6 +122,7 @@ const CreateProduct: React.FC = () => {
       <header className="font-semibold text-xl md:text-2xl text-gray-800 mb-6">Create Product</header>
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <Input
+          dataCy="name-input"
           placeholder="Product name"
           value={form.name}
           error={formErrors.name}
@@ -130,6 +131,7 @@ const CreateProduct: React.FC = () => {
         />
 
         <textarea
+          data-cy="description-input"
           placeholder="Description"
           value={form.description}
           onChange={(e) => handleChange('description', e.target.value)}
@@ -138,6 +140,7 @@ const CreateProduct: React.FC = () => {
         />
 
         <Input
+          dataCy="avatar-input"
           placeholder="Image URL"
           value={form.avatar}
           error={formErrors.avatar}
@@ -146,6 +149,7 @@ const CreateProduct: React.FC = () => {
         />
 
         <Select
+          dataCy="category-input"
           extraClasses="w-64 md:w-80 lg:w-96 mb-6"
           placeholder="Category"
           value={form.category}
@@ -155,6 +159,7 @@ const CreateProduct: React.FC = () => {
         />
 
         <Input
+          dataCy="price-input"
           placeholder="Price"
           value={form.price}
           error={formErrors.price}
