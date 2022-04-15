@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'
+import Loading from '../../components/Loading';
 import { getDateFromTimeStamp } from '../../Helpers';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { isModalOpen, openModal } from '../../store/modal';
+import { clearErrors, deleteProduct, onDeleteSuccess, productsState } from '../../store/products';
 
 type ProductProps = {
   id: string,
@@ -33,6 +35,8 @@ const Product: React.FC = () => {
   const isOpen = useAppSelector(isModalOpen);
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const { deleteStatus } = useAppSelector(productsState);
+
   const [productDetails, setProductDetails] = useState<ProductProps>({
     id: "string",
     name: "string",
@@ -53,6 +57,15 @@ const Product: React.FC = () => {
       navigate('/products');
     }
   }, [location, navigate]);
+
+  useEffect(() => {
+    if (deleteStatus === 'failed') { // Set error to '' after error modal pops up
+      dispatch(clearErrors());
+    } else if (deleteStatus === 'success') { //If status is success set status back to idle and navigate to /products
+      dispatch(onDeleteSuccess());
+      navigate('/products', { state: { from: location } });
+    }
+  }, [deleteStatus, dispatch, location, navigate])
 
   return (
     <div className="flex flex-grow mt-10 flex-col items-center">
@@ -76,19 +89,28 @@ const Product: React.FC = () => {
           <header className="flex-wrap text-gray-700 text-xs md:text-base">{productDetails.description}</header>
         </div>
       </div>
-      <img
-        alt="add-product"
-        src="/delete.png"
-        //Check if modal is button and hide the delete button
-        className={`fixed bottom-10 w-14 right-0 md:right-14 delay-150 hover:scale-125 duration-300 hover:cursor-pointer z-30 ${isOpen ? 'hidden' : ''}`}
-        onClick={() => dispatch(openModal({ //Open the modal with given details
-          title: 'Delete Product',
-          text: `Are you sure want to delete ${productDetails.name}`,
-          isConfirmButtonActive: true,
-          confirmButtonText: 'Yes',
-          onConfirm: () => console.log('Will be deleted')
-        }))}
-      />
+      {
+        deleteStatus === 'loading' ? (
+          <div className="fixed bottom-10 w-14 right-0 md:right-14">
+            <Loading />
+          </div>
+        ) : (
+          <img
+            alt="add-product"
+            src={"/delete.png"}
+            //Check if modal is button and hide the delete button
+            className={`fixed bottom-10 w-14 right-0 md:right-14 delay-150 hover:scale-125 duration-300 hover:cursor-pointer z-30 ${isOpen ? 'hidden' : ''}`}
+            onClick={() => dispatch(openModal({ //Open the modal with given details
+              title: 'Delete Product',
+              text: `Are you sure want to delete ${productDetails.name}`,
+              isConfirmButtonActive: true,
+              confirmButtonText: 'Yes',
+              onConfirm: () => dispatch(deleteProduct(productDetails.id))
+            }))}
+          />
+        )
+      }
+
     </div>
   );
 }

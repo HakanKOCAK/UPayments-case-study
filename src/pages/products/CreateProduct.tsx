@@ -5,7 +5,7 @@ import Loading from '../../components/Loading';
 import Select from '../../components/Select';
 import { categoriesState } from '../../store/categories';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { clearCreateErrors, createProduct, onCreateSuccess, productsState } from '../../store/products';
+import { clearErrors, createProduct, onCreateSuccess, productsState } from '../../store/products';
 
 export type FormData = {
   name: string,
@@ -50,7 +50,7 @@ const CreateProduct: React.FC = () => {
 
   useEffect(() => {
     if (createStatus === 'failed') { //Set erros as '' after dialog pops up
-      dispatch(clearCreateErrors());
+      dispatch(clearErrors());
     } else if (createStatus === 'success') { //If status is success set status back to idle and navigate to /products
       dispatch(onCreateSuccess());
       navigate('/products', { state: { from: location } });

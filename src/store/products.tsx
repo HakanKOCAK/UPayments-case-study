@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getProducts, newProduct } from '../api/products';
+import { getProducts, newProduct, removeProduct } from '../api/products';
 import { FormData } from '../pages/products/CreateProduct';
 import { RootState } from './';
 
@@ -17,7 +17,8 @@ export interface Product {
 interface ProductsState {
   entries: Product[],
   status: 'idle' | 'loading' | 'failed';
-  createStatus: 'idle' | 'loading' | 'success' | 'failed'
+  createStatus: 'idle' | 'loading' | 'success' | 'failed',
+  deleteStatus: 'idle' | 'loading' | 'success' | 'failed'
   error: string
 };
 
@@ -25,6 +26,7 @@ const initialState: ProductsState = {
   entries: [],
   status: 'idle',
   createStatus: 'idle',
+  deleteStatus: 'idle',
   error: ''
 };
 
@@ -56,17 +58,32 @@ export const createProduct = createAsyncThunk<Product, FormData, { rejectValue: 
       return rejectWithValue('Error creating product');
     }
   }
-)
+);
+
+export const deleteProduct = createAsyncThunk<Product, string, { rejectValue: string }>(
+  'products/deleteProduct',
+  async (data: string, { rejectWithValue }) => {
+    try {
+      const response = await removeProduct(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Error deleting product');
+    }
+  }
+);
 
 export const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    clearCreateErrors: (state) => {
+    clearErrors: (state) => {
       state.error = '';
     },
     onCreateSuccess: (state) => {
       state.createStatus = 'idle';
+    },
+    onDeleteSuccess: (state) => {
+      state.deleteStatus = 'idle';
     }
   },
   extraReducers: (builder) => {
@@ -99,10 +116,24 @@ export const productSlice = createSlice({
           state.error = action.payload;
         }
       })
+      .addCase(deleteProduct.pending, (state) => {
+        state.deleteStatus = 'loading';
+      })
+      .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<Product>) => {
+        state.deleteStatus = 'success';
+        const copyEntries = [...state.entries].filter((entry) => entry.id !== action.payload.id);
+        state.entries = copyEntries;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.deleteStatus = 'failed';
+        if (action.payload) {
+          state.error = action.payload;
+        }
+      })
   }
 });
 
 export const productsState = (state: RootState) => state.products;
-export const { clearCreateErrors, onCreateSuccess } = productSlice.actions;
+export const { clearErrors, onCreateSuccess, onDeleteSuccess } = productSlice.actions;
 
 export default productSlice.reducer;

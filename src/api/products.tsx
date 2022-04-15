@@ -19,3 +19,11 @@ export function newProduct(data: FormData) {
       .catch((err) => reject(err.message));
   });
 }
+
+export function removeProduct(id: String) {
+  return new Promise<{ data: Product }>((resolve, reject) => {
+    axios.delete(`${API_URL}/products/${id}`)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err.message));
+  })
+}
