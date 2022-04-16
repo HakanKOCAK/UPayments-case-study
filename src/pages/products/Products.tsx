@@ -62,20 +62,20 @@ const Products: React.FC = () => {
       </div>
       <div className="flex mt-7 md:mt-9 justify-center h-4/6">
         {toDispay.length > 0 ? ( //Check if products exists in the store or filter active
-          <div className="flex flex-row flex-wrap max-w-2xl justify-center">
+          <div className="flex flex-row flex-wrap max-w-4xl justify-center">
             {toDispay.map((e) => (
               <div
                 key={e.id}
-                className="flex flex-col w-36 h-60 mx-3 my-3 bg-white rounded-lg duration-150 group group-hover:cursor-pointer hover:scale-110 "
+                className="flex flex-col w-44 h-60 mx-3 mt-3 mb-12 bg-white rounded-lg duration-150 group group-hover:cursor-pointer hover:scale-110 "
                 onClick={() => navigate(`/products/${e.id}`, { state: { details: { ...e }, from: location } })} //Navigate to /:id product
               >
                 <div className="w-full h-full p-1 group-hover:-translate-y-10 duration-150">
                   <div className="flex w-full justify-center items-center mb-12 group-hover:-rotate-12 duration-150">
                     <img alt={`img-${e.id}`} src={e.avatar} className="h-24" />
                   </div>
-                  <p className="text-sm md:text-base font-semibold mt-2 mx-1 truncate">{e.name}</p>
-                  <p className="text-sm md:text-base text-center font-bold mt-1 truncate group-hover:-translate-x-10 duration-100">{`$${e.price.toLocaleString('en-us', { minimumFractionDigits: 2 })}`}</p>
-                  <button className="font-semibold bg-gray-300 rounded-md w-24 opacity-0 p-2 mt-5 delay-0 duration-75 group-hover:opacity-100 group-hover:delay-150 group-hover:duration-500 hover:bg-gray-400">Buy now</button>
+                  <p className="text-sm md:text-base text-center font-semibold mt-2 group-hover:-translate-x-4 duration-100">{e.name.slice(0, 16)}</p>
+                  <p className="text-sm md:text-base text-center font-bold mt-1 group-hover:-translate-x-3 duration-100">{`$${e.price.toLocaleString('en-us', { minimumFractionDigits: 2 })}`}</p>
+                  <button className="font-semibold bg-gray-300 rounded-md w-24 opacity-0 p-2 ml-4 mt-6 delay-0 duration-75 group-hover:opacity-100 group-hover:delay-150 group-hover:duration-500 hover:bg-gray-400">Buy now</button>
                 </div>
 
               </div>

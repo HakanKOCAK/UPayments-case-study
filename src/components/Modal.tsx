@@ -29,7 +29,7 @@ const Modal: React.FC = () => {
       onClick={handleClose}
     >
       <div
-        className="flex flex-col justify-between rounded-md bg-black opacity-60 h-1/4 w-9/12 sm:w-7/12 md:w-1/2 lg:w-1/3 xl:w-1/4 p-3"
+        className="flex flex-col justify-between rounded-md bg-gray-700 opacity-90 h-1/4 w-9/12 sm:w-7/12 md:w-1/2 lg:w-1/3 xl:w-1/4 p-3"
         onClick={(e) => e.stopPropagation()} //Do not close modal if clicked inside
       >
         <header className="text-white text-lg font-semibold break-words">{details.title}</header>
