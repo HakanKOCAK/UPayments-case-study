@@ -66,14 +66,18 @@ const Products: React.FC = () => {
             {toDispay.map((e) => (
               <div
                 key={e.id}
-                className="flex flex-col p-1 w-36 h-60 mx-3 my-3 hover:scale-110 duration-150 hover:cursor-pointer"
+                className="flex flex-col w-36 h-60 mx-3 my-3 bg-white rounded-lg duration-150 group group-hover:cursor-pointer hover:scale-110 "
                 onClick={() => navigate(`/products/${e.id}`, { state: { details: { ...e }, from: location } })} //Navigate to /:id product
               >
-                <div className="flex w-full justify-center bg-white rounded-lg h-full items-center">
-                  <img alt={`img-${e.id}`} src={e.avatar} className="h-24" />
+                <div className="w-full h-full p-1 group-hover:-translate-y-10 duration-150">
+                  <div className="flex w-full justify-center items-center mb-12 group-hover:-rotate-12 duration-150">
+                    <img alt={`img-${e.id}`} src={e.avatar} className="h-24" />
+                  </div>
+                  <p className="text-sm md:text-base font-semibold mt-2 mx-1 truncate">{e.name}</p>
+                  <p className="text-sm md:text-base text-center font-bold mt-1 truncate group-hover:-translate-x-10 duration-100">{`$${e.price.toLocaleString('en-us', { minimumFractionDigits: 2 })}`}</p>
+                  <button className="font-semibold bg-gray-300 rounded-md w-24 opacity-0 p-2 mt-5 delay-0 duration-75 group-hover:opacity-100 group-hover:delay-150 group-hover:duration-500 hover:bg-gray-400">Buy now</button>
                 </div>
-                <p className="text-sm md:text-base font-semibold mt-2 mx-1 truncate h-9">{e.name}</p>
-                <p className="text-sm md:text-base text-center font-bold mt-1 truncate">{`$${e.price.toLocaleString('en-us', { minimumFractionDigits: 2 })}`}</p>
+
               </div>
             ))}
           </div>)
