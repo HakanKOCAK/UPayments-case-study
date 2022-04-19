@@ -35,8 +35,8 @@ function App() {
     }
   }, [productsError, categoriesFetchingError, dispatch])
   return (
-    <div className="flex min-h-screen bg-radial-gradient from-very-light-pink to-light-grey pt-8 px-4 md:px-10 lg:px-14 pb-2 z-0">
-      <div className={`flex flex-col flex-grow ${isOpen ? 'blur-xs' : ''}`}>
+    <div className="min-h-screen bg-radial-gradient from-very-light-pink to-light-grey z-0">
+      <div className={`flex flex-col min-h-screen pt-8 px-4 md:px-10 lg:px-14 pb-2 ${isOpen ? 'blur-xs' : ''} `}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Navigate replace to="/products" />} />

@@ -27,14 +27,18 @@ const Products: React.FC = () => {
 
   //Check if fetching products
   if (status === 'loading') {
-    return <Loading />
+    return (
+      <div className="flex flex-grow items-center justify-center">
+        <Loading />
+      </div>
+    );
   }
 
   //Check if there is an error related with api endpoint or internet connection
   if (errorFecthingProducts || errorFecthingCategories) {
     return (
       <div className="flex flex-grow items-center justify-center">
-        <header className="text-bold text-gray-600 text-2xl">
+        <header className="text-bold text-gray-600 text-2xl text-center">
           Something went wrong. Please refresh the page. If the problem continues.....
         </header>
       </div>
