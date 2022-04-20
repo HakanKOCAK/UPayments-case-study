@@ -4,7 +4,7 @@ import { FormData } from '../pages/products/CreateProduct';
 import { RootState } from './';
 
 export interface Product {
-  createdAt: string,
+  createdAt: number,
   name: string,
   avatar: string,
   id: string,
@@ -37,10 +37,36 @@ export const fetchProducts = createAsyncThunk<Product[], void, { rejectValue: st
   async (_, { rejectWithValue }) => {
     try {
       const response = await getProducts();
-      return response.data;
+
+      // I had to iterate each product entry to convert them to desired state as stated in the demo pdf.
+      // Normally I would return response.data directly however, other developers started to post products with
+      // given types:
+      //  product: {
+      //    name: ['example'],
+      //    price: ['40'],
+      //    .
+      //    .
+      //    .
+      //  } and it caused error at line 23 in /pages/Products.txs which is
+      // return e.name.toLowerCase().includes(filterByName.toLocaleLowerCase())
+      // and
+      // line 81 did not work as expected which is 
+      // e.price.toLocaleString('en-us', { minimumFractionDigits: 2 }
+      return response.data.map((item) => ({
+        name: (item.name || '').toString(),
+        createdAt: item.createdAt,
+        avatar: (item.avatar || '').toString(),
+        developerEmail: (item.developerEmail || '').toString(),
+        price: typeof item.price !== 'number' ? parseFloat(item.price || '0') : (item.price || 0),
+        id: (item.id || '').toString(),
+        category: (item.category || '').toString(),
+        description: (item.description || '').toString()
+      }));
+
+      //return response.data;
     } catch (error) {
       //This to send error as payload if promise status finalized as rejected.
-
+      console.log(error)
       //Normally it should return error directly or in an improved way but for the demo I will return a string.
       // return rejectWithValue(error);
       return rejectWithValue('Error fetching products');
